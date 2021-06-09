@@ -27,5 +27,18 @@ namespace Words.Controllers
             string[] words = System.IO.File.ReadAllLines(wordsPath);
             return words;
         }
+
+        public List<string> GetRandomWords(string[] words)
+        {
+            List<string> randomWords = new();
+            var random = new Random();
+            int randomIndex;
+            for (int w = 1; w <= 5; w++)
+            {
+                randomIndex = random.Next(0, words.Length);
+                randomWords.Add(words[randomIndex]);
+            }
+            return randomWords;
+        }
     }
 }

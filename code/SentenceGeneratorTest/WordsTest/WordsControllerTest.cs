@@ -11,6 +11,13 @@ namespace SentenceGeneratorTest.WordsTest
 {
     public class WordsControllerTest
     {
+        public string GetPath()
+        {
+            string path = Directory.GetCurrentDirectory();
+            string parentPath = Path.GetFullPath(Path.Combine(path, @"..\..\..\..\"));
+            return Path.GetFullPath(Path.Combine(parentPath, @"Words\resources\"));
+        }
+
         [Fact]
         public void GetResourcesPathTest()
         {
@@ -23,14 +30,26 @@ namespace SentenceGeneratorTest.WordsTest
         [Fact]
         public void ReadFileTest()
         {
-            string path = Directory.GetCurrentDirectory();
-            string parentPath = Path.GetFullPath(Path.Combine(path, @"..\..\..\..\"));
-            string resourcesPath = Path.GetFullPath(Path.Combine(parentPath, @"Words\resources\"));
             WordsController words = new();
-            Assert.NotNull(words.ReadFile(resourcesPath, "verbs"));
-            Assert.True(words.ReadFile(resourcesPath, "verbs").Contains("zoom"));
-            Assert.Equal(words.ReadFile(resourcesPath, "verbs")[0], "Agenize");
+            Assert.NotNull(words.ReadFile(GetPath(), "verbs"));
+            Assert.Contains("zoom", words.ReadFile(GetPath(), "verbs"));
+            Assert.Equal("Agenize", words.ReadFile(GetPath(), "verbs")[0]);
         }
-        
+
+        [Fact]
+        public void GetRandomWordsTest()
+        {
+            WordsController words = new();
+            String[] verbs = words.ReadFile(GetPath(), "verbs");
+
+            Assert.True(words.GetRandomWords(verbs).Any());
+            Assert.Equal(5, words.GetRandomWords(verbs).Count);
+
+            string word = words.GetRandomWords(verbs).First();
+
+            Assert.IsType<string>(word);
+
+        }
+
     }
 }
