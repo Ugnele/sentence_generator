@@ -1,4 +1,5 @@
 ﻿using Length.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace SentenceGeneratorTest.Utility
         {
             LengthController length = new();
 
-            var testIsInteger = length.GetSentenceLength();
-            Assert.IsType<int>(testIsInteger);
+            var testIsInteger = length.GetSentenceLength().Value;
+            Assert.IsType<Int32>(testIsInteger);
         }
 
         /// Checks if generated length is within scope 1 to 5
@@ -28,8 +29,8 @@ namespace SentenceGeneratorTest.Utility
 
             for(int i = 0; i < 1000; i++)
             {
-                var testIsInScope = length.GetSentenceLength();
-                Assert.IsType<int>(testIsInScope);
+                var testIsInScope = length.GetSentenceLength().Value;
+                Assert.IsType<Int32>(testIsInScope);
                 Assert.True(testIsInScope <= 5);
                 Assert.True(testIsInScope >= 1);
             }
@@ -56,7 +57,7 @@ namespace SentenceGeneratorTest.Utility
             while (!obtained)
             {
                 var testIsInScope = length.GetSentenceLength();
-                if (testIsInScope == minMaxValue) obtained = true;
+                if (testIsInScope.Value == minMaxValue) obtained = true;
 
             }
             return obtained;

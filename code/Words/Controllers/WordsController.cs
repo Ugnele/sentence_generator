@@ -42,7 +42,7 @@ namespace Words.Controllers
         }
 
         [HttpGet]
-        public List<string>[] GetAllWords(string path)
+        public ActionResult<List<string>[]> GetAllWords(string path)
         {
             //string path = GetResourcesPath();
             String[] adjectives = ReadFile(path, "adjectives");

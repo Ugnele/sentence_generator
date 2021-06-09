@@ -13,7 +13,7 @@ namespace Length.Controllers
     {
 
         [HttpGet]
-        public int GetSentenceLength()
+        public ActionResult<int> GetSentenceLength()
         {
             var random = new Random();
             int sentenceLength = random.Next(1, 6);

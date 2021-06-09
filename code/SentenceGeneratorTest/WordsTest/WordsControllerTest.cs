@@ -65,9 +65,10 @@ namespace SentenceGeneratorTest.WordsTest
         public void GetAllWordsTest()
         {
             WordsController words = new();
-            Assert.True(words.GetAllWords(GetPath()).Any());
-            Assert.Equal(4, words.GetAllWords(GetPath()).Length); //adjectives, adverbs, nouns and verbs
-            foreach (List<string> speechPart in words.GetAllWords(GetPath()))
+            List<string>[] allWords = words.GetAllWords(GetPath()).Value;
+            Assert.True(allWords.Any());
+            Assert.Equal(4, allWords.Length); //adjectives, adverbs, nouns and verbs
+            foreach (List<string> speechPart in allWords)
             {
                 Assert.NotNull(speechPart);
                 Assert.Equal(5, speechPart.Count);
