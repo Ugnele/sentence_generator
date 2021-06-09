@@ -19,13 +19,18 @@ namespace SentenceGeneratorTest.WordsTest
             Assert.True(Directory.Exists(parentPath));
         }
 
-        /// Checks if 
-        /*[Fact]
+        /// Checks if file is read and stored into an array
+        [Fact]
         public void ReadFileTest()
         {
+            string path = Directory.GetCurrentDirectory();
+            string parentPath = Path.GetFullPath(Path.Combine(path, @"..\..\..\..\"));
+            string resourcesPath = Path.GetFullPath(Path.Combine(parentPath, @"Words\resources\"));
             WordsController words = new();
-            Assert.NotNull(words.ReadFile("verbs"));
+            Assert.NotNull(words.ReadFile(resourcesPath, "verbs"));
+            Assert.True(words.ReadFile(resourcesPath, "verbs").Contains("zoom"));
+            Assert.Equal(words.ReadFile(resourcesPath, "verbs")[0], "Agenize");
         }
-        */
+        
     }
 }

@@ -20,9 +20,11 @@ namespace Words.Controllers
             
             return resourcesPath;
         }
-        public string[] ReadFile(string path)
+        public string[] ReadFile(string path, string wordsFile)
         {
-            string[] words = System.IO.File.ReadAllLines($@"\Recourses\{path}.txt");
+            string file = wordsFile + ".txt";
+            string wordsPath = Path.GetFullPath(Path.Combine(path, file));
+            string[] words = System.IO.File.ReadAllLines(wordsPath);
             return words;
         }
     }
