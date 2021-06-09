@@ -39,30 +39,27 @@ namespace SentenceGeneratorTest.Utility
         [Fact]
         public void MaxValue()
         {
-            LengthController length = new();
-            Boolean maximum = false;
-            while (!maximum)
-            {
-                var testIsInScope = length.GetSentenceLength();
-                if (testIsInScope == 5) maximum = true;
-                
-            }
-            Assert.True(maximum);
+            Assert.True(MinMaxValues(5));
         }
 
         /// Checks if generated length can obtain minimum length of 5
         [Fact]
         public void MinValue()
         {
+            Assert.True(MinMaxValues(1));
+        }
+
+        public static Boolean MinMaxValues(int minMaxValue)
+        {
             LengthController length = new();
-            Boolean minimum = false;
-            while (!minimum)
+            Boolean obtained = false;
+            while (!obtained)
             {
                 var testIsInScope = length.GetSentenceLength();
-                if (testIsInScope == 1) minimum = true;
+                if (testIsInScope == minMaxValue) obtained = true;
 
             }
-            Assert.True(minimum);
+            return obtained;
         }
     }
 }
