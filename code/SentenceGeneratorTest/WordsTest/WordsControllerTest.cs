@@ -18,6 +18,9 @@ namespace SentenceGeneratorTest.WordsTest
             return Path.GetFullPath(Path.Combine(parentPath, @"Words\resources\"));
         }
 
+        /// <summary>
+        /// Checks if the path for words resources is obtained
+        /// </summary>
         [Fact]
         public void GetResourcesPathTest()
         {
@@ -26,7 +29,9 @@ namespace SentenceGeneratorTest.WordsTest
             Assert.True(Directory.Exists(parentPath));
         }
 
+        /// <summary>
         /// Checks if file is read and stored into an array
+        /// </summary>
         [Fact]
         public void ReadFileTest()
         {
@@ -36,6 +41,9 @@ namespace SentenceGeneratorTest.WordsTest
             Assert.Equal("Agenize", words.ReadFile(GetPath(), "verbs")[0]);
         }
 
+        /// <summary>
+        /// Checks if 5 random words are stored into a list
+        /// </summary>
         [Fact]
         public void GetRandomWordsTest()
         {
@@ -48,8 +56,22 @@ namespace SentenceGeneratorTest.WordsTest
             string word = words.GetRandomWords(verbs).First();
 
             Assert.IsType<string>(word);
-
         }
 
+        /// <summary>
+        /// Checks if all four of speech parts are stored 5 words each
+        /// </summary>
+        [Fact]
+        public void GetAllWordsTest()
+        {
+            WordsController words = new();
+            Assert.True(words.GetAllWords(GetPath()).Any());
+            Assert.Equal(4, words.GetAllWords(GetPath()).Length); //adjectives, adverbs, nouns and verbs
+            foreach (List<string> speechPart in words.GetAllWords(GetPath()))
+            {
+                Assert.NotNull(speechPart);
+                Assert.Equal(5, speechPart.Count);
+            }
+        }
     }
 }

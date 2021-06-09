@@ -40,5 +40,25 @@ namespace Words.Controllers
             }
             return randomWords;
         }
+
+        [HttpGet]
+        public List<string>[] GetAllWords(string path)
+        {
+            //string path = GetResourcesPath();
+            String[] adjectives = ReadFile(path, "adjectives");
+            String[] adverbs = ReadFile(path, "adverbs");
+            String[] nouns = ReadFile(path, "nouns");
+            String[] verbs = ReadFile(path, "verbs");
+
+            List<string>[] allWords =
+            {
+                GetRandomWords(adjectives),
+                GetRandomWords(adverbs),
+                GetRandomWords(nouns),
+                GetRandomWords(verbs)
+            };
+
+            return allWords;
+        }
     }
 }
