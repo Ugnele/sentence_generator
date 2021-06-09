@@ -16,7 +16,7 @@ namespace Length.Controllers
         public int GetSentenceLength()
         {
             var random = new Random();
-            int sentenceLength = random.Next(1, 5);
+            int sentenceLength = random.Next(1, 6);
             return sentenceLength;
         }
     }
