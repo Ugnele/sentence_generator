@@ -50,11 +50,16 @@ namespace SentenceGeneratorTest.WordsTest
             FileReader reader = new();
             String[] verbs = reader.ReadFile(GetPath(), "verbs");
 
-            Assert.True(reader.GetRandomWords(verbs).Any());
-            Assert.Equal(5, reader.GetRandomWords(verbs).Count);
+            Assert.True(reader.GetRandomWords(verbs, "verbs").Any());
 
-            string word = reader.GetRandomWords(verbs).First();
+            int countValues = reader.GetRandomWords(verbs, "verbs").GetValueOrDefault("verbs").Count;
+            Assert.Equal(1, countValues);
 
+            String[] nouns = reader.ReadFile(GetPath(), "nouns");
+            countValues = reader.GetRandomWords(nouns, "nouns").GetValueOrDefault("nouns").Count;
+            Assert.Equal(2, countValues);
+
+            string word = reader.GetRandomWords(verbs, "verbs").GetValueOrDefault("verbs").First();
             Assert.IsType<string>(word);
         }
     }

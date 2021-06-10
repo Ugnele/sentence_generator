@@ -23,16 +23,22 @@ namespace Words.Reader
             return words;
         }
 
-        public List<string> GetRandomWords(string[] words)
+        public Dictionary<string, List<string>> GetRandomWords(string[] words, string key)
         {
-            List<string> randomWords = new();
+            Dictionary<string, List<string>> randomWords = new();
             var random = new Random();
             int randomIndex;
-            for (int w = 1; w <= 5; w++)
+            List<string> selectedWords = new();
+            if(key.Equals("nouns"))
             {
                 randomIndex = random.Next(0, words.Length);
-                randomWords.Add(words[randomIndex]);
+                selectedWords.Add(words[randomIndex]);
             }
+            randomIndex = random.Next(0, words.Length);
+            selectedWords.Add(words[randomIndex]);
+
+            randomWords.Add(key, selectedWords);
+            
             return randomWords;
         }
     }
