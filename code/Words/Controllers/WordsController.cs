@@ -5,57 +5,53 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Words.Reader;
 
 namespace Words.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[Controller]")]
     public class WordsController : ControllerBase
     {
-        public string GetResourcesPath()
-        {
-            string path = Directory.GetCurrentDirectory();
-            string parentPath = Path.GetFullPath(Path.Combine(path, @"..\..\..\"));
-            string resourcesPath = Path.GetFullPath(Path.Combine(parentPath, @"resources\"));
-            
-            return resourcesPath;
-        }
-        public string[] ReadFile(string path, string wordsFile)
-        {
-            string file = wordsFile + ".txt";
-            string wordsPath = Path.GetFullPath(Path.Combine(path, file));
-            string[] words = System.IO.File.ReadAllLines(wordsPath);
-            return words;
-        }
-
-        public List<string> GetRandomWords(string[] words)
-        {
-            List<string> randomWords = new();
-            var random = new Random();
-            int randomIndex;
-            for (int w = 1; w <= 5; w++)
-            {
-                randomIndex = random.Next(0, words.Length);
-                randomWords.Add(words[randomIndex]);
-            }
-            return randomWords;
-        }
 
         [HttpGet]
-        public ActionResult<List<string>[]> GetAllWords(string path)
+        public ActionResult<List<string>[]> GetAllWords()//string path
         {
-            //string path = GetResourcesPath();
-            String[] adjectives = ReadFile(path, "adjectives");
-            String[] adverbs = ReadFile(path, "adverbs");
-            String[] nouns = ReadFile(path, "nouns");
-            String[] verbs = ReadFile(path, "verbs");
+            FileReader fr = new();
+            string path = fr.GetResourcesPath();
+            String[] adjectives = fr.ReadFile(path, "adjectives");
+            String[] adverbs = fr.ReadFile(path, "adverbs");
+            String[] nouns = fr.ReadFile(path, "nouns");
+            String[] verbs = fr.ReadFile(path, "verbs");
 
             List<string>[] allWords =
             {
-                GetRandomWords(adjectives),
-                GetRandomWords(adverbs),
-                GetRandomWords(nouns),
-                GetRandomWords(verbs)
+                fr.GetRandomWords(adjectives),
+                fr.GetRandomWords(adverbs),
+                fr.GetRandomWords(nouns),
+                fr.GetRandomWords(verbs)
+            };
+
+            return allWords;
+        }
+
+        // this method is only used for testing purposes
+        [HttpGet]
+        [Route("testing")]
+        public ActionResult<List<string>[]> GetAllWordsForTesting(string path)
+        {
+            FileReader fr = new();
+            String[] adjectives = fr.ReadFile(path, "adjectives");
+            String[] adverbs = fr.ReadFile(path, "adverbs");
+            String[] nouns = fr.ReadFile(path, "nouns");
+            String[] verbs = fr.ReadFile(path, "verbs");
+
+            List<string>[] allWords =
+            {
+                fr.GetRandomWords(adjectives),
+                fr.GetRandomWords(adverbs),
+                fr.GetRandomWords(nouns),
+                fr.GetRandomWords(verbs)
             };
 
             return allWords;
