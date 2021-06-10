@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Length\Length.csproj" />
+    <ProjectReference Include="..\Sentence\Sentence.csproj" />
     <ProjectReference Include="..\Words\Words.csproj" />
   </ItemGroup>
 
