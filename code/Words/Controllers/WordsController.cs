@@ -15,7 +15,7 @@ namespace Words.Controllers
     {
 
         [HttpGet]
-        public ActionResult<List<string>[]> GetAllWords()//string path
+        public ActionResult<Dictionary<string, List<string>>> GetAllWords()
         {
             FileReader fr = new();
             string path = fr.GetResourcesPath();
@@ -24,13 +24,11 @@ namespace Words.Controllers
             String[] nouns = fr.ReadFile(path, "nouns");
             String[] verbs = fr.ReadFile(path, "verbs");
 
-            List<string>[] allWords =
-            {
-                fr.GetRandomWords(adjectives),
-                fr.GetRandomWords(adverbs),
-                fr.GetRandomWords(nouns),
-                fr.GetRandomWords(verbs)
-            };
+            Dictionary<string, List<string>> allWords = new();
+            allWords.Add("adjectives", fr.GetRandomWords(adjectives, "adjectives"));
+            allWords.Add("adverbs", fr.GetRandomWords(adverbs, "adverbs"));
+            allWords.Add("nouns", fr.GetRandomWords(nouns, "nouns"));
+            allWords.Add("verbs", fr.GetRandomWords(verbs, "verbs"));
 
             return allWords;
         }
@@ -38,7 +36,7 @@ namespace Words.Controllers
         // this method is only used for testing purposes
         [HttpGet]
         [Route("testing")]
-        public ActionResult<List<string>[]> GetAllWordsForTesting(string path)
+        public ActionResult<Dictionary<string, List<string>>> GetAllWordsForTesting(string path)
         {
             FileReader fr = new();
             String[] adjectives = fr.ReadFile(path, "adjectives");
@@ -46,13 +44,11 @@ namespace Words.Controllers
             String[] nouns = fr.ReadFile(path, "nouns");
             String[] verbs = fr.ReadFile(path, "verbs");
 
-            List<string>[] allWords =
-            {
-                fr.GetRandomWords(adjectives),
-                fr.GetRandomWords(adverbs),
-                fr.GetRandomWords(nouns),
-                fr.GetRandomWords(verbs)
-            };
+            Dictionary<string, List<string>> allWords = new();
+            allWords.Add("adjectives", fr.GetRandomWords(adjectives, "adjectives"));
+            allWords.Add("adverbs", fr.GetRandomWords(adverbs, "adverbs"));
+            allWords.Add("nouns", fr.GetRandomWords(nouns, "nouns"));
+            allWords.Add("verbs", fr.GetRandomWords(verbs, "verbs"));
 
             return allWords;
         }

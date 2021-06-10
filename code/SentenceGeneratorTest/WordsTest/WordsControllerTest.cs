@@ -25,14 +25,17 @@ namespace SentenceGeneratorTest.WordsTest
         public void GetAllWordsTest()
         {
             WordsController words = new();
-            List<string>[] allWords = words.GetAllWordsForTesting(GetPath()).Value;
+            Dictionary<string, List<string>> allWords = 
+                words.GetAllWordsForTesting(GetPath()).Value;
             Assert.True(allWords.Any());
-            Assert.Equal(4, allWords.Length); //adjectives, adverbs, nouns and verbs
-            foreach (List<string> speechPart in allWords)
+
+            Assert.Equal(4, allWords.Keys.Count); //adjectives, adverbs, nouns and verbs
+            foreach (List<string> speechPart in allWords.Values)
             {
                 Assert.NotNull(speechPart);
-                Assert.Equal(5, speechPart.Count);
             }
+
+            Assert.True(allWords.Values.Count <= 5);
         }
     }
 }
