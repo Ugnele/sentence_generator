@@ -52,14 +52,14 @@ namespace SentenceGeneratorTest.WordsTest
 
             Assert.True(reader.GetRandomWords(verbs, "verbs").Any());
 
-            int countValues = reader.GetRandomWords(verbs, "verbs").GetValueOrDefault("verbs").Count;
+            int countValues = reader.GetRandomWords(verbs, "verbs").Count;
             Assert.Equal(1, countValues);
 
             String[] nouns = reader.ReadFile(GetPath(), "nouns");
-            countValues = reader.GetRandomWords(nouns, "nouns").GetValueOrDefault("nouns").Count;
+            countValues = reader.GetRandomWords(nouns, "nouns").Count;
             Assert.Equal(2, countValues);
 
-            string word = reader.GetRandomWords(verbs, "verbs").GetValueOrDefault("verbs").First();
+            string word = reader.GetRandomWords(verbs, "verbs").First();
             Assert.IsType<string>(word);
         }
     }

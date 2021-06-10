@@ -23,9 +23,8 @@ namespace Words.Reader
             return words;
         }
 
-        public Dictionary<string, List<string>> GetRandomWords(string[] words, string key)
+        public List<string> GetRandomWords(string[] words, string key)
         {
-            Dictionary<string, List<string>> randomWords = new();
             var random = new Random();
             int randomIndex;
             List<string> selectedWords = new();
@@ -36,10 +35,8 @@ namespace Words.Reader
             }
             randomIndex = random.Next(0, words.Length);
             selectedWords.Add(words[randomIndex]);
-
-            randomWords.Add(key, selectedWords);
             
-            return randomWords;
+            return selectedWords;
         }
     }
 }
