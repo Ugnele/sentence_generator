@@ -11,7 +11,7 @@ namespace SentenceGeneratorTest.SentenceTest
     public class SentenceControllerTest
     {
         [Fact]
-        public void IsInteger()
+        public void IsSentenceBuilt()
         {
             SentenceController sentence = new();
             Assert.NotNull(sentence.GetSentence());
