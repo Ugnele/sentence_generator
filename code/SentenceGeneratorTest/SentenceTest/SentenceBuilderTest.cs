@@ -51,6 +51,28 @@ namespace SentenceGeneratorTest.SentenceTest
             Assert.NotEmpty(wordsDic["verbs"].ElementAt(0));
         }
 
-        
+        [Fact]
+        public void BuildSentence()
+        {
+            SentenceBuilder sb = new();
+            string sentence = sb.BuildSentence(wordsDummy, "1");
+
+            Assert.NotEmpty(sentence);
+            Assert.True(!sentence.Contains(" "));
+
+            sentence = "";
+            Assert.Empty(sentence);
+
+            sentence = sb.BuildSentence(wordsDummy, "2");
+            Assert.NotEmpty(sentence);
+            Assert.Contains(" ", sentence);
+
+
+            sentence = sb.BuildSentence(wordsDummy, "5");
+            Assert.NotEmpty(sentence);
+            Assert.Contains(" ", sentence);
+            Assert.Contains(" and ", sentence);
+        }
+
     }
 }
