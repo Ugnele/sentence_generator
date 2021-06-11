@@ -26,9 +26,31 @@ namespace SentenceGeneratorTest.SentenceTest
             SentenceBuilder sb = new();
             Dictionary<string, List<string>> wordsDic = sb.StoreWords(wordsDummy);
 
+            Assert.NotEmpty(wordsDic.Keys);
             Assert.Equal(4, wordsDic.Keys.Count);
+
             Assert.Equal("adjectives", wordsDic.Keys.First().ToString());
+            Assert.Equal("adverbs", sb.StoreWords(wordsDummy).Keys.ElementAt(1));
+            Assert.Equal("nouns", sb.StoreWords(wordsDummy).Keys.ElementAt(2));
             Assert.Equal("verbs", wordsDic.Keys.Last().ToString());
         }
+
+        [Fact]
+        public void StoresValues()
+        {
+            SentenceBuilder sb = new();
+            Dictionary<string, List<string>> wordsDic = sb.StoreWords(wordsDummy);
+
+            Assert.NotEmpty(wordsDic.Values);
+            Assert.True(wordsDic.Values.Count <= 5);
+
+            Assert.NotEmpty(wordsDic["adjectives"].ElementAt(0));
+            Assert.NotEmpty(wordsDic["adverbs"].ElementAt(0));
+            Assert.NotEmpty(wordsDic["nouns"].First());
+            Assert.NotEmpty(wordsDic["nouns"].Last());
+            Assert.NotEmpty(wordsDic["verbs"].ElementAt(0));
+        }
+
+        
     }
 }
