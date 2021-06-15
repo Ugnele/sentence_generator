@@ -9,7 +9,7 @@ env:
   AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.UGNE_WEBAPP4_FFFF }}
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 5.0.x
-  WORKING_DIRECTORY: Sentence
+  WORKING_DIRECTORY: code/Sentence
 jobs:
   build:
     runs-on: ubuntu-latest
