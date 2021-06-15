@@ -2,19 +2,24 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Words.Reader
 {
     public class FileReader
     {
+
         public string GetResourcesPath()
         {
-            string path = Directory.GetCurrentDirectory();
-            string resourcesPath = Path.GetFullPath(Path.Combine(path, @"resources\"));
+            string exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
+            string appRoot = appPathMatcher.Match(exePath).Value;
 
+            string resourcesPath = Path.GetFullPath(Path.Combine(appRoot, @"resources\"));
             return resourcesPath;
         }
+
         public string[] ReadFile(string path, string wordsFile)
         {
             string file = wordsFile + ".txt";

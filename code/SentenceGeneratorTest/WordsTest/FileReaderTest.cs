@@ -11,13 +11,6 @@ namespace SentenceGeneratorTest.WordsTest
 {
     public class FileReaderTest
     {
-        public static string GetPath()
-        {
-            string path = Directory.GetCurrentDirectory();
-            string parentPath = Path.GetFullPath(Path.Combine(path, @"..\..\..\..\"));
-            return Path.GetFullPath(Path.Combine(parentPath, @"Words\resources\"));
-        }
-
         /// <summary>
         /// Checks if the path for words resources is obtained
         /// </summary>
@@ -25,8 +18,7 @@ namespace SentenceGeneratorTest.WordsTest
         public void GetResourcesPathTest()
         {
             FileReader reader = new();
-            string parentPath = Path.GetFullPath(Path.Combine(reader.GetResourcesPath(), @"..\"));
-            Assert.True(Directory.Exists(parentPath));
+            Assert.True(Directory.Exists(reader.GetResourcesPath()));
         }
 
         /// <summary>
@@ -36,9 +28,9 @@ namespace SentenceGeneratorTest.WordsTest
         public void ReadFileTest()
         {
             FileReader reader = new();
-            Assert.NotNull(reader.ReadFile(GetPath(), "verbs"));
-            Assert.Contains("zoom", reader.ReadFile(GetPath(), "verbs"));
-            Assert.Equal("Agenize", reader.ReadFile(GetPath(), "verbs")[0]);
+            Assert.NotNull(reader.ReadFile(reader.GetResourcesPath(), "verbs"));
+            Assert.Contains("zoom", reader.ReadFile(reader.GetResourcesPath(), "verbs"));
+            Assert.Equal("Agenize", reader.ReadFile(reader.GetResourcesPath(), "verbs")[0]);
         }
 
         /// <summary>
@@ -48,14 +40,14 @@ namespace SentenceGeneratorTest.WordsTest
         public void GetRandomWordsTest()
         {
             FileReader reader = new();
-            String[] verbs = reader.ReadFile(GetPath(), "verbs");
+            String[] verbs = reader.ReadFile(reader.GetResourcesPath(), "verbs");
 
             Assert.True(reader.GetRandomWords(verbs, "verbs").Any());
 
             int countValues = reader.GetRandomWords(verbs, "verbs").Count;
             Assert.Equal(1, countValues);
 
-            String[] nouns = reader.ReadFile(GetPath(), "nouns");
+            String[] nouns = reader.ReadFile(reader.GetResourcesPath(), "nouns");
             countValues = reader.GetRandomWords(nouns, "nouns").Count;
             Assert.Equal(2, countValues);
 
