@@ -5,7 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="resources\adjectives.txt" />
+    <None Remove="resources\adverbs.txt" />
+    <None Remove="resources\nouns.txt" />
+    <None Remove="resources\verbs.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="resources\adjectives.txt" />
+    <Resource Include="resources\adverbs.txt" />
+    <Resource Include="resources\nouns.txt" />
+    <Resource Include="resources\verbs.txt" />
   </ItemGroup>
 
 </Project>
