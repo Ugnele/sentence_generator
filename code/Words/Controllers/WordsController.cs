@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Words.Reader;
 
@@ -13,11 +14,18 @@ namespace Words.Controllers
     [Route("[Controller]")]
     public class WordsController : ControllerBase
     {
+        private IConfiguration Configuration;
+
+        public WordsController(IConfiguration config)
+        {
+            Configuration = config;
+        }
+
         [HttpGet]
         public ActionResult<Dictionary<string, List<string>>> GetAllWords()
         {
             FileReader fr = new();
-            string path = fr.GetResourcesPath();
+            string path = $"{Configuration["ResourcesPath"]}";
             String[] adjectives = fr.ReadFile(path, "adjectives");
             String[] adverbs = fr.ReadFile(path, "adverbs");
             String[] nouns = fr.ReadFile(path, "nouns");

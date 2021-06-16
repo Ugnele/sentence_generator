@@ -19,9 +19,9 @@ namespace FrontEnd.Controllers
         {
             Configuration = config;
         }
+        
         public async Task<IActionResult> Index()
         {
-            //var sentenceService = "https://localhost:44366/sentence";
             var sentenceService = $"{Configuration["sentenceServiceURL"]}";
             var sentenceResponceCall = await new HttpClient().GetStringAsync(sentenceService);
             ViewBag.responseCall = sentenceResponceCall;
