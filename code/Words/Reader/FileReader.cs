@@ -1,33 +1,35 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace Words.Reader
 {
     public class FileReader
     {
-        public string GetResourcesPath()
-        {
+        public CloudStorageAccount storageAccount;
+        public CloudBlobClient serviceClient;
+        public CloudBlobContainer container;
+        public CloudBlockBlob blob;
 
-            string exePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            Regex appPathMatcher = new Regex(@"(?<!fil)[A-Za-z]:\\+[\S\s]*?(?=\\+bin)");
-            string appRoot = appPathMatcher.Match(exePath).Value;
+        public string ReadBlobContents(string connectionString, string fileName)
+        {         
+            storageAccount = CloudStorageAccount.Parse(connectionString);
+            serviceClient = storageAccount.CreateCloudBlobClient();
+            container = serviceClient.GetContainerReference($"project");
+            blob = container.GetBlockBlobReference($"{fileName}");
 
-            string resourcesPath = Path.GetFullPath(Path.Combine(appRoot, @"resources\"));
+            string contents = blob.DownloadTextAsync().Result;
 
-            return resourcesPath;
+            return contents;
         }
 
-        public string[] ReadFile(string path, string wordsFile)
+        public string[] ReadFile(string connectionString, string wordsFile)
         {
-            string file = wordsFile + ".txt";//
-            string wordsPath = Path.GetFullPath(Path.Combine(path, file));
-            string[] words = System.IO.File.ReadAllLines(wordsPath);
+            string contents = ReadBlobContents(connectionString, wordsFile + ".txt");
+            string[] words = contents.Split("\r\n");
             return words;
         }
 

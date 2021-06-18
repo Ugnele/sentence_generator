@@ -10,11 +10,11 @@ namespace SentenceGeneratorTest.FrontEndTest
 {
     public class HomeControllerTest
     {
-        [Fact]
+        /*[Fact]
         public void IsSentenceProduced()
         {
             HomeController sentence = new();
             Assert.NotNull(sentence.Index());
-        }
+        }*/
     }
 }

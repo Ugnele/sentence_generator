@@ -12,7 +12,7 @@ namespace SentenceGeneratorTest.WordsTest
     public class WordsControllerTest
     {
 
-        /// <summary>
+        /*/// <summary>
         /// Checks if all four of speech parts are stored 5 words each
         /// </summary>
         [Fact]
@@ -31,5 +31,6 @@ namespace SentenceGeneratorTest.WordsTest
 
             Assert.True(allWords.Values.Count <= 5);
         }
+        */
     }
 }

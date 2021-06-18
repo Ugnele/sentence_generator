@@ -25,11 +25,11 @@ namespace Words.Controllers
         public ActionResult<Dictionary<string, List<string>>> GetAllWords()
         {
             FileReader fr = new();
-            string path = $"{Configuration["ResourcesPath"]}";
-            String[] adjectives = fr.ReadFile(path, "adjectives");
-            String[] adverbs = fr.ReadFile(path, "adverbs");
-            String[] nouns = fr.ReadFile(path, "nouns");
-            String[] verbs = fr.ReadFile(path, "verbs");
+            string connectionString = $"{Configuration["StorageConnectionString"]}";
+            String[] adjectives = fr.ReadFile(connectionString, "adjectives");
+            String[] adverbs = fr.ReadFile(connectionString, "adverbs");
+            String[] nouns = fr.ReadFile(connectionString, "nouns");
+            String[] verbs = fr.ReadFile(connectionString, "verbs");
 
             Dictionary<string, List<string>> allWords = new();
             allWords.Add("adjectives", fr.GetRandomWords(adjectives, "adjectives"));
