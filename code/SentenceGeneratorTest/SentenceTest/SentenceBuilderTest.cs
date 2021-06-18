@@ -67,6 +67,15 @@ namespace SentenceGeneratorTest.SentenceTest
             Assert.NotEmpty(sentence);
             Assert.Contains(" ", sentence);
 
+            sentence = sb.BuildSentence(wordsDummy, "3");
+            Assert.NotEmpty(sentence);
+            Assert.Contains(" ", sentence);
+            Assert.Equal(3, sentence.Split(' ').Length);
+
+            sentence = sb.BuildSentence(wordsDummy, "4");
+            Assert.NotEmpty(sentence);
+            Assert.Contains(" ", sentence);
+            Assert.Equal(4, sentence.Split(' ').Length);
 
             sentence = sb.BuildSentence(wordsDummy, "5");
             Assert.NotEmpty(sentence);
