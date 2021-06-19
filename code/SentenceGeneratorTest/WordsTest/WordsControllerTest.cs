@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,14 +12,22 @@ namespace SentenceGeneratorTest.WordsTest
 {
     public class WordsControllerTest
     {
+        private readonly IConfiguration configuration;
 
-        /*/// <summary>
+        public WordsControllerTest()
+        {
+            configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.test.json")
+                .Build();
+        }
+
+        /// <summary>
         /// Checks if all four of speech parts are stored 5 words each
         /// </summary>
         [Fact]
         public void GetAllWordsTest()
         {
-            WordsController words = new();
+            WordsController words = new(configuration);
             Dictionary<string, List<string>> allWords = 
                 words.GetAllWords().Value;
             Assert.True(allWords.Any());
@@ -31,6 +40,5 @@ namespace SentenceGeneratorTest.WordsTest
 
             Assert.True(allWords.Values.Count <= 5);
         }
-        */
     }
 }
