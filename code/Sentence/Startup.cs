@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Sentence.Controllers;
 
 namespace Sentence
 {
@@ -35,6 +36,8 @@ namespace Sentence
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Sentence", Version = "v1" });
             });
+
+            services.AddHttpClient<SentenceController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

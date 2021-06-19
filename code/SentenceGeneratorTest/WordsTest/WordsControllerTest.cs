@@ -36,6 +36,7 @@ namespace SentenceGeneratorTest.WordsTest
             foreach (List<string> speechPart in allWords.Values)
             {
                 Assert.NotNull(speechPart);
+                Assert.NotEmpty(speechPart);
             }
 
             Assert.True(allWords.Values.Count <= 5);
