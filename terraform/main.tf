@@ -55,7 +55,7 @@ resource "azurerm_app_service" "service1" {
 
   app_settings = {
     "sentenceServiceURL"        = "https://ugne-webapp4.azurewebsites.net/sentence"
-    "WEBSITE_WEBDEPLOY_USE_SCM" = "false"
+    "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
   }
 
   tags = {
@@ -76,7 +76,7 @@ resource "azurerm_app_service" "service2" {
   }
 
   app_settings = {
-    "WEBSITE_WEBDEPLOY_USE_SCM" = "false"
+    "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
   }
 
   tags = {
@@ -97,7 +97,7 @@ resource "azurerm_app_service" "service3" {
   }
 
   app_settings = {
-    "StorageAccountName" = "ugnestorageaccount"
+    "StorageAccountName"        = "ugnestorageaccount"
     StorageConnectionString     = var.StorageConnectionString
     StorageAccountKey           = var.StorageAccountKey
     "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
