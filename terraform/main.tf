@@ -97,7 +97,7 @@ resource "azurerm_app_service" "service3" {
   }
 
   app_settings = {
-    "StorageAccountName"        = "ugnestorageaccount"
+    "StorageAccountName" = "ugnestorageaccount"
     StorageConnectionString     = var.StorageConnectionString
     StorageAccountKey           = var.StorageAccountKey
     "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
