@@ -12,12 +12,11 @@ provider "azurerm" {
 }
 
 locals {
-    project_name = "sentence-generator"
-    location     = "uksouth"
+    
 }
 
 resource "azurerm_resource_group" "main" {
-    name     = "${var.my_name}sarakauskaite"
+    name     = var.rg_name
     location = var.location
 
     tags     = {
@@ -29,8 +28,8 @@ resource "azurerm_app_service_plan" "main" {
   name                = "${var.my_name}-project-appservice"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  kind                = "Linux"
-  reserved            = true
+  #kind                = "Linux"
+  #reserved            = true
 
   sku {
     tier = "Free"
@@ -42,9 +41,9 @@ resource "azurerm_app_service_plan" "main" {
   }
 }
 
-resource "azurerm_app_service" "main" {
-  count               = 4 # create 4 similar app services
-  name                = "${var.my_name}-webapp${count.index}"
+resource "azurerm_app_service" "service12" {
+  count               = 2 # create 4 similar app services
+  name                = "${var.my_name}-webapp${count.index + 1}"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   app_service_plan_id = azurerm_app_service_plan.main.id
@@ -52,9 +51,57 @@ resource "azurerm_app_service" "main" {
   site_config {
     dotnet_framework_version = "v5.0"
     scm_type                 = "LocalGit"
+    use_32_bit_worker_process = true
+  }
+  
+  app_settings = {
+    "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
+  }
+
+  tags = {
+    project = "true"
+  }
+}
+
+resource "azurerm_app_service" "service3" {
+  name                = "${var.my_name}-webapp3"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  app_service_plan_id = azurerm_app_service_plan.main.id
+
+  site_config {
+    dotnet_framework_version = "v5.0"
+    scm_type                 = "LocalGit"
+    use_32_bit_worker_process = true
   }
 
   app_settings = {
+    "StorageConnectionString" = "DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=ugnestorageaccount;AccountKey=402fSd5BmMpkDz4L+TwUlrlPdAH2nECFP/FC6WBOMl+ff3NVVES1TvW2nNcCHR+1s1B/+lsRsrNdmKDCNeqMtw=="
+    "StorageAccountName"      = "ugnestorageaccount"
+    "StorageAccountKey"       = "402fSd5BmMpkDz4L+TwUlrlPdAH2nECFP/FC6WBOMl+ff3NVVES1TvW2nNcCHR+1s1B/+lsRsrNdmKDCNeqMtw=="
+    "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
+  }
+  
+  tags = {
+    project = "true"
+  }
+}
+
+resource "azurerm_app_service" "service4" {
+  name                = "${var.my_name}-webapp4"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  app_service_plan_id = azurerm_app_service_plan.main.id
+
+  site_config {
+    dotnet_framework_version = "v5.0"
+    scm_type                 = "LocalGit"
+    use_32_bit_worker_process = true
+  }
+
+  app_settings = {
+    "lengthServiceURL" = "https://ugne-webapp2.azurewebsites.net/length"
+    "wordsServiceURL"  = "https://ugne-webapp3.azurewebsites.net/words"
     "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
   }
   
