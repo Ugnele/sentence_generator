@@ -76,9 +76,9 @@ resource "azurerm_app_service" "service3" {
   }
 
   app_settings = {
-    "StorageConnectionString" = "DefaultEndpointsProtocol=https;EndpointSuffix=core.windows.net;AccountName=ugnestorageaccount;AccountKey=402fSd5BmMpkDz4L+TwUlrlPdAH2nECFP/FC6WBOMl+ff3NVVES1TvW2nNcCHR+1s1B/+lsRsrNdmKDCNeqMtw=="
     "StorageAccountName"      = "ugnestorageaccount"
-    "StorageAccountKey"       = "402fSd5BmMpkDz4L+TwUlrlPdAH2nECFP/FC6WBOMl+ff3NVVES1TvW2nNcCHR+1s1B/+lsRsrNdmKDCNeqMtw=="
+    StorageConnectionString   = var.StorageConnectionString
+    StorageAccountKey         = var.StorageAccountKey
     "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
   }
   
