@@ -1,27 +1,27 @@
 terraform {
-    required_providers {
-        azurerm = {
-            source  = "hashicorp/azurerm"
-            version = "~> 2.46.0"
-        }
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 2.46.0"
     }
+  }
 }
 
 provider "azurerm" {
-    features {}
+  features {}
 }
 
 locals {
-    
+
 }
 
 resource "azurerm_resource_group" "main" {
-    name     = var.rg_name
-    location = var.location
+  name     = var.rg_name
+  location = var.location
 
-    tags     = {
-      project = "true"
-    }
+  tags = {
+    project = "true"
+  }
 }
 
 resource "azurerm_app_service_plan" "main" {
@@ -33,7 +33,7 @@ resource "azurerm_app_service_plan" "main" {
 
   sku {
     tier = "Free"
-    size="F1"
+    size = "F1"
   }
 
   tags = {
@@ -41,21 +41,42 @@ resource "azurerm_app_service_plan" "main" {
   }
 }
 
-resource "azurerm_app_service" "service12" {
-  count               = 2 # create 4 similar app services
-  name                = "${var.my_name}-webapp${count.index + 1}"
+resource "azurerm_app_service" "service1" {
+  name                = "${var.my_name}-webapp1"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
   app_service_plan_id = azurerm_app_service_plan.main.id
 
   site_config {
-    dotnet_framework_version = "v5.0"
-    scm_type                 = "LocalGit"
+    dotnet_framework_version  = "v5.0"
+    scm_type                  = "None"
     use_32_bit_worker_process = true
   }
-  
+
   app_settings = {
-    "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
+    "sentenceServiceURL"        = "https://ugne-webapp4.azurewebsites.net/sentence"
+    "WEBSITE_WEBDEPLOY_USE_SCM" = "false"
+  }
+
+  tags = {
+    project = "true"
+  }
+}
+
+resource "azurerm_app_service" "service2" {
+  name                = "${var.my_name}-webapp2"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  app_service_plan_id = azurerm_app_service_plan.main.id
+
+  site_config {
+    dotnet_framework_version  = "v5.0"
+    scm_type                  = "None"
+    use_32_bit_worker_process = true
+  }
+
+  app_settings = {
+    "WEBSITE_WEBDEPLOY_USE_SCM" = "false"
   }
 
   tags = {
@@ -70,18 +91,18 @@ resource "azurerm_app_service" "service3" {
   app_service_plan_id = azurerm_app_service_plan.main.id
 
   site_config {
-    dotnet_framework_version = "v5.0"
-    scm_type                 = "LocalGit"
+    dotnet_framework_version  = "v5.0"
+    scm_type                  = "None"
     use_32_bit_worker_process = true
   }
 
   app_settings = {
-    "StorageAccountName"      = "ugnestorageaccount"
-    StorageConnectionString   = var.StorageConnectionString
-    StorageAccountKey         = var.StorageAccountKey
+    "StorageAccountName"        = "ugnestorageaccount"
+    StorageConnectionString     = var.StorageConnectionString
+    StorageAccountKey           = var.StorageAccountKey
     "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
   }
-  
+
   tags = {
     project = "true"
   }
@@ -94,17 +115,17 @@ resource "azurerm_app_service" "service4" {
   app_service_plan_id = azurerm_app_service_plan.main.id
 
   site_config {
-    dotnet_framework_version = "v5.0"
-    scm_type                 = "LocalGit"
+    dotnet_framework_version  = "v5.0"
+    scm_type                  = "None"
     use_32_bit_worker_process = true
   }
 
   app_settings = {
-    "lengthServiceURL" = "https://ugne-webapp2.azurewebsites.net/length"
-    "wordsServiceURL"  = "https://ugne-webapp3.azurewebsites.net/words"
+    "lengthServiceURL"          = "https://ugne-webapp2.azurewebsites.net/length"
+    "wordsServiceURL"           = "https://ugne-webapp3.azurewebsites.net/words"
     "WEBSITE_WEBDEPLOY_USE_SCM" = "true"
   }
-  
+
   tags = {
     project = "true"
   }
@@ -122,16 +143,16 @@ resource "azurerm_storage_account" "main" {
   }
 }
 
-resource "azurerm_storage_container" "main" {
-  name                  = "project"
-  storage_account_name  = azurerm_storage_account.main.name
-  container_access_type = "blob"
-}
+# resource "azurerm_storage_container" "main" {
+#   name                  = "project"
+#   storage_account_name  = azurerm_storage_account.main.name
+#   container_access_type = "blob"
+# }
 
-resource "azurerm_storage_blob" "example" {
-  for_each               = var.resources
-  name                   = "${each.key}.txt"
-  storage_account_name   = azurerm_storage_account.main.name
-  storage_container_name = azurerm_storage_container.main.name
-  type                   = "Block"
-}
+# resource "azurerm_storage_blob" "example" {
+#   for_each               = var.resources
+#   name                   = "${each.key}.txt"
+#   storage_account_name   = azurerm_storage_account.main.name
+#   storage_container_name = azurerm_storage_container.main.name
+#   type                   = "Block"
+# }

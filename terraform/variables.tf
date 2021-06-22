@@ -13,9 +13,9 @@ variable "rg_name" {
 variable "resources" {
   default = {
     "adjectives" = 1
-    "adverbs" = 2
-    "nouns" = 3
-    "verbs" = 4
+    "adverbs"    = 2
+    "nouns"      = 3
+    "verbs"      = 4
   }
 }
 
