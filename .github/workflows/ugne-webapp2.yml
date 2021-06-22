@@ -12,7 +12,7 @@ env:
   WORKING_DIRECTORY: code/Length
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: azure/login@v1
       with:
