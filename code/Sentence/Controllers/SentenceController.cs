@@ -35,7 +35,7 @@ namespace Sentence.Controllers
             SentenceBuilder sb = new();
             String sentence = sb.BuildSentence(wordsResponceCall, lengthResponceCall);
 
-            return Ok(sentence);
+            return Ok(sentence.ToUpper());
         }
     }
 }
