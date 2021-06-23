@@ -53,7 +53,7 @@ namespace SentenceGeneratorTest.WordsTest
             String[] verbs = reader.ReadFile(connectionString, "verbs");
 
             Assert.True(reader.GetRandomWords(verbs, "verbs").Any());
-            Assert.IsType<List<string>>(reader.GetRandomWords(verbs, "verbs"));
+                        Assert.IsType<List<string>>(reader.GetRandomWords(verbs, "verbs"));
 
             int countValues = reader.GetRandomWords(verbs, "verbs").Count;
             Assert.Equal(1, countValues);

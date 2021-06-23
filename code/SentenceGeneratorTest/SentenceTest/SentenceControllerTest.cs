@@ -41,7 +41,7 @@ namespace SentenceGeneratorTest.SentenceTest
             var response = await controller.GetSentence();
             string sentence = ((OkObjectResult)response).Value.ToString();
 
-            Assert.Equal("slate here chyliferous Arctictis  and tuff", sentence);
+            Assert.Equal("SLATE HERE CHYLIFEROUS ARCTICTIS  AND TUFF", sentence.ToUpper());
         }
     }
 }
